@@ -14,3 +14,6 @@ RUN apt-get update && apt-get install -y \
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Set the PS1 environment variable in the container's bashrc
+RUN echo 'export PS1="\W> "' >> ~/.bashrc
