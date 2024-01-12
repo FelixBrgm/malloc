@@ -1,5 +1,5 @@
 {
-	"name": "C/Rust Development",
+	"name": "42-malloc",
 	"dockerFile": "Dockerfile",
 	"customizations": {
 		"vscode": {
