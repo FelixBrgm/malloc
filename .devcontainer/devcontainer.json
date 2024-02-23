@@ -1,6 +1,10 @@
 {
 	"name": "42-malloc",
 	"dockerFile": "Dockerfile",
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+	],
 	"customizations": {
 		"vscode": {
 			"settings": {
@@ -12,5 +16,5 @@
 			]
 		}
 	},
-	"workspaceFolder": "/workspaces/42-malloc/source"
+	"workspaceFolder": "/workspaces/42-malloc"
 }
