@@ -1,6 +1,6 @@
 {
 	"name": "42-malloc",
-	"runArgs": ["--name", "42-malloc"],
+	"runArgs": ["--name", "dev_42-malloc"],
 	"dockerFile": "Dockerfile",
 	"mounts": [
 		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
