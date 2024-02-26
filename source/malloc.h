@@ -6,6 +6,7 @@
 #include <stddef.h>	  // size_t
 #include <sys/mman.h> // mmap + FLAGS
 #include <unistd.h>	  // getpageSize()
+#include <stdint.h>	  //  uint8_t
 
 // CONFIG
 #define INITIAL_ZONE_LEN 10
@@ -25,8 +26,8 @@ enum e_zone_type
 
 typedef struct s_zone
 {
-	char *mem;
-	char type;
+	uint8_t *mem;
+	uint8_t type;
 	short widest_gap;
 	short size;
 } t_zone;
@@ -44,12 +45,14 @@ extern t_storage storage;
 void *malloc(size_t size);
 void free(void *ptr);
 
+void show_alloc_mem(void);
+
 // Malloc helpers
 void *alloc(size_t size);
-char get_type_from_size(size_t);
+uint8_t get_type_from_size(size_t);
 void *create_dynamic_zone_alloc(size_t size);
 
-void write_short_as_chars(char *ptr, short s);
-short read_chars_as_short(char *ptr);
+void write_short_as_chars(uint8_t *ptr, short s);
+short read_chars_as_short(uint8_t *ptr);
 
 #endif
