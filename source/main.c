@@ -1,28 +1,13 @@
-#include "./linked_list/linked_list.h"
-#include <stdio.h>
+#include "malloc.h"
 
-void prints(void *ptr) {
-
-    printf("VALUE: %i\n", *((int *) ptr));
-}
-
-int main() {
-
-    int a = 3;
-    int b = 5;
-    int c = 7;
-
-    t_list **list = NULL;
-
-    t_list *temp = ft_lstnew(&a);
-    list = &temp;
-
-    ft_lstadd_back(list, ft_lstnew(&b));
-    ft_lstadd_back(list, ft_lstnew(&c));
-
-    ft_lstiter(*list, prints);
-
-
-
+int main()
+{
+    printf("Pagesize: %i\n", getpagesize());
+    void *test = malloc(600);
+    printf("NXT %i\n", read_chars_as_short(test - 4));
+    printf("COUNT %i\n", read_chars_as_short(test - 2));
+    printf("MAIN: Test_ptr: %p\n", test);
+    test = malloc(40);
+    printf("MAIN: Test_ptr: %p\n", test);
     return (0);
 }

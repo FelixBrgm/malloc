@@ -1,5 +1,5 @@
 AR := ar rcs
-CFLAGS := -Wall -Werror -Wextra
+# CFLAGS := -Wall -Werror -Wextra
 
 
 ifeq ($(HOSTTYPE),)
@@ -8,16 +8,11 @@ endif
 
 NAME = libft_malloc_$(HOSTTYPE).so
 
-LINKED_LIST := linked_list
-
 # LINKED_LIST
-LINKED_LISTCFILES := ft_lstadd_back.c ft_lstadd_front.c   \
-		    ft_lstclear.c ft_lstdelone.c ft_lstiter.c 				\
-			ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c 
-LINKED_LISTCFILES := $(addprefix $(LINKED_LIST)/, $(LINKED_LISTCFILES))
+MALLOC_C_FILES := malloc.c malloc_helper.c
 
 # LIBS
-CFILES := $(LINKED_LISTCFILES)
+CFILES := $(MALLOC_C_FILES)
 OFILES := $(CFILES:.c=.o)
 
 all: $(NAME)
@@ -27,7 +22,7 @@ $(NAME): $(OFILES)
 	@echo "Compiled!"
 
 %.o : %.c
-	@$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -g -c $(CFLAGS) $< -o $@
 
 clean: 
 	@rm -f $(OFILES)
@@ -41,4 +36,4 @@ fclean: clean
 re: fclean all
 
 main: $(NAME)
-	$(CC) $(CFLAGS) main.c -o tester $(NAME)
+	$(CC) -g $(CFLAGS) main.c -o tester $(NAME)
