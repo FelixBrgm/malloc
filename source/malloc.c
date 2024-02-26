@@ -18,12 +18,11 @@ void *malloc(size_t size)
         storage.index++;
     }
 
-    char type = get_type_from_size(size);
+    uint8_t type = get_type_from_size(size);
 
     switch (type)
     {
     case ZONE_TYPE_DYNAMIC:
-        printf("\n\nZone dynamic\n");
         return create_dynamic_zone_alloc(size);
     }
 
