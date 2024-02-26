@@ -79,6 +79,8 @@ void *create_dynamic_zone_alloc(size_t needed_size)
 		nxt = zone->mem[cur];
 		while (nxt)
 		{
+			printf("------------\n");
+
 			printf("SHOULD NOT BE HERE\n");
 			short start_of_free_mem = cur + 4 + read_chars_as_short(zone->mem + cur + 2);
 
@@ -95,7 +97,6 @@ void *create_dynamic_zone_alloc(size_t needed_size)
 		}
 		if (nxt == 0)
 		{
-			printf("Should be here\n");
 			printf("CUR: %i | NXT: %i\n", cur, nxt);
 			printf("COUND: %i\n", read_chars_as_short(zone->mem + 4));
 			short start_of_free_mem = cur + 4 + read_chars_as_short(zone->mem + cur + 2);
@@ -103,9 +104,9 @@ void *create_dynamic_zone_alloc(size_t needed_size)
 			if (needed_size <= (zone->size - 2 - start_of_free_mem))
 			{
 				printf("HELLO\n");
-				write_short_as_chars(zone->mem + cur, start_of_free_mem);
+				write_short_as_chars(zone->mem + cur, start_of_free_mem); // here the nxt is saved
 				write_short_as_chars(zone->mem + start_of_free_mem, nxt); // Set old start ptr to new allocation
-				create_dynamic_alloc_header(zone->mem + start_of_free_mem + 2, nxt, needed_size - 4);
+				create_dynamic_alloc_header(zone->mem + start_of_free_mem, nxt, needed_size - 4);
 				res = zone->mem + 4 + start_of_free_mem;
 				printf("NEW CURR: %i\n", 4 + start_of_free_mem);
 				break;
