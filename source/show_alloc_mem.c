@@ -11,7 +11,7 @@ void print_dynamic_zone(t_zone *zone)
     {
         alloc_count++;
         size = read_chars_as_short(zone->mem + nxt + 2);
-        printf("  | Index: %i \t u_index: %i \t Size: %i \t Next: %i\n", nxt, nxt + 2, size, read_chars_as_short(zone->mem + nxt));
+        printf("  | Index: %i \t u_index: %i \t Size: %i \t Next: %i\n", nxt, nxt + 4, size, read_chars_as_short(zone->mem + nxt));
         nxt = read_chars_as_short(zone->mem + nxt);
     }
 
