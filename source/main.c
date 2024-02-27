@@ -5,15 +5,34 @@ int main()
     printf("Pagesize: %i\n", getpagesize());
     void *test = NULL;
     int i = 0;
-    test = malloc(14);
-    while (test)
-    {
-        i++;
-        test = malloc(16);
-        printf("Malloc:%p\n\n", test);
-    }
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    printf("BEFORE\n");
+    test = malloc(140);
+    printf("After\n");
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+    test = malloc(140);
+
     show_alloc_mem();
 
-    printf("%i\n", i);
     return (0);
 }
