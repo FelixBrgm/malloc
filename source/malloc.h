@@ -10,26 +10,23 @@
 
 // CONFIG
 #define INITIAL_ZONE_LEN 10
-#define ZONE_DIV_TINY 16
-#define ZONE_DIV_SMALL 4
 
-// Enums
-enum e_zone_type
-{
-	ZONE_TYPE_DYNAMIC = (unsigned char)0,
-	ZONE_TYPE_BLOCK_1 = (unsigned char)1,
-	ZONE_TYPE_BLOCK_2 = (unsigned char)2,
-	ZONE_TYPE_BLOCK_4 = (unsigned char)4,
-	ZONE_TYPE_BLOCK_8 = (unsigned char)8,
-	ZONE_TYPE_WHOLE = (unsigned char)255
-};
+#define TINY_TYPE 1
+#define TINY_ALLOC_SIZE 32
+#define TINY_ZONE_PAGE_MLTPLR 1
+
+#define SMALL_TYPE 2
+#define SMALL_ALLOC_SIZE 128
+#define SMALL_ZONE_PAGE_MLTPLR 4
+
+#define LARGE_TYPE_FREE 254
+#define LARGE_TYPE_USED 255
 
 typedef struct s_zone
 {
 	uint8_t *mem;
 	uint8_t type;
-	short widest_gap;
-	short size;
+	size_t size;
 } t_zone;
 
 typedef struct s_storage
@@ -45,14 +42,13 @@ extern t_storage storage;
 void *malloc(size_t size);
 void free(void *ptr);
 
+void *alloc(size_t size);
+void dealloc(void *ptr, size_t size);
+
+// Visualizer
 void show_alloc_mem(void);
 
-// Malloc helpers
-void *alloc(size_t size);
-uint8_t get_type_from_size(size_t);
-void *create_dynamic_zone_alloc(size_t size);
-
-void write_short_as_chars(uint8_t *ptr, short s);
-short read_chars_as_short(uint8_t *ptr);
+int add_zone(size_t size);
+void *get_large_mem(size_t size);
 
 #endif

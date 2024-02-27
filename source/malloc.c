@@ -4,26 +4,17 @@ t_storage storage = {0};
 
 void *malloc(size_t size)
 {
-    if (storage.zones == NULL || storage.capacity == 0)
+    if (size <= TINY_ALLOC_SIZE)
     {
-        storage.page_size = getpagesize();
-        storage.index = 0;
-        storage.capacity = 10;
-        storage.zones = alloc(sizeof(t_storage) * 10);
-        // REMOVE THIS
-        storage.zones[0].mem = alloc(storage.page_size);
-        storage.zones[0].size = storage.page_size;
-        storage.zones[0].type = ZONE_TYPE_DYNAMIC;
-        storage.zones[0].widest_gap = storage.page_size - 2;
-        storage.index++;
     }
-
-    uint8_t type = get_type_from_size(size);
-
-    switch (type)
+    else if (size <= SMALL_ALLOC_SIZE)
     {
-    case ZONE_TYPE_DYNAMIC:
-        return create_dynamic_zone_alloc(size);
+    }
+    else
+    {
+        if (add_zone(size))
+            return (NULL);
+        return (get_large_mem(size));
     }
 
     return NULL;
@@ -46,4 +37,12 @@ void *alloc(size_t size)
     if (ptr == MAP_FAILED)
         return NULL;
     return ptr;
+}
+
+void dealloc(void *ptr, size_t size)
+{
+    if (ptr != NULL && size > 0)
+    {
+        munmap(ptr, size);
+    }
 }
