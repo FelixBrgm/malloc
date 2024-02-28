@@ -49,6 +49,11 @@ void dealloc(void *ptr, size_t size);
 void show_alloc_mem(void);
 
 int add_zone(size_t size);
+void *get_tiny_mem(size_t size);
 void *get_large_mem(size_t size);
+
+// Helper
+uint16_t read_uint8_ts_as_uint16_t(uint8_t *ptr);
+void write_uint16_t_as_uint8_ts(uint8_t *ptr, uint16_t s);
 
 #endif
