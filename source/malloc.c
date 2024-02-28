@@ -6,9 +6,20 @@ void *malloc(size_t size)
 {
     if (size <= TINY_ALLOC_SIZE)
     {
+        void *res = get_tiny_mem(size);
+        if (res != NULL)
+            return (res);
+        printf("NEW ZONE\n");
+        add_zone(size);
+        res = get_tiny_mem(size);
+        return (res);
     }
     else if (size <= SMALL_ALLOC_SIZE)
     {
+        // void *res = get_small_mem(size);
+        // if (res == NULL)
+        //     add_zone(size);
+        // return (get_small_mem(size));
     }
     else
     {
