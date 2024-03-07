@@ -1,19 +1,22 @@
 #include "malloc.h"
-
 int main()
 {
-    printf("Pagesize: %i\n", getpagesize());
-    void *test = NULL;
-    int i = 0;
-    test = malloc(14);
-    while (test)
+    for (size_t i = 0; i < 200 * 100; i++)
     {
-        i++;
-        test = malloc(16);
-        printf("Malloc:%p\n\n", test);
+        void *test = ft_malloc(10);
+        ft_free(test);
+        printf("POINTER 1: %p\n", test);
+        test = ft_malloc(10);
+        printf("POINTER 2: %p\n", test);
     }
-    show_alloc_mem();
 
-    printf("%i\n", i);
+    printf("Capacity %i\n", storage.capacity);
+
+    uint8_t asd = 0;
+    activate_bit(&asd, 6);
+
+    printf("VALUE: %zu\n", get_bit(asd, 7));
+    printf("VALUE: %zu\n", get_bit(asd, 6));
+
     return (0);
 }

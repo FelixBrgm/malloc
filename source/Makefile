@@ -9,7 +9,7 @@ endif
 NAME = libft_malloc_$(HOSTTYPE).so
 
 # LINKED_LIST
-MALLOC_C_FILES := malloc.c malloc_helper.c show_alloc_mem.c
+MALLOC_C_FILES := malloc.c free.c helper.c zone.c 
 
 # LIBS
 CFILES := $(MALLOC_C_FILES)
@@ -36,4 +36,8 @@ fclean: clean
 re: fclean all
 
 main: $(NAME)
-	$(CC) -g $(CFLAGS) main.c -o tester $(NAME)
+	$(CC) $(CFLAGS) main.c -o tester $(NAME)
+
+test: main
+	clear
+	@./tester
