@@ -3,10 +3,10 @@
 t_zone *get_empty_zone(void);
 int extend_zones();
 void ft_bzero(uint8_t *ptr, size_t size);
-int alloc_zone(t_zone *zone, size_t size);
+t_zone *alloc_zone(t_zone *zone, size_t size);
 uint32_t get_max_nbr_of_blocks(size_t size, uint32_t block_size);
 
-int add_zone(size_t size)
+t_zone *add_zone(size_t size)
 {
     t_zone *zone = NULL;
 
@@ -14,12 +14,12 @@ int add_zone(size_t size)
     if (zone == NULL)
     {
         if (extend_zones())
-            return (-1);
+            return (NULL);
 
         zone = get_empty_zone();
 
         if (zone == NULL)
-            return (-1);
+            return (NULL);
     }
 
     return (alloc_zone(zone, size));
@@ -58,7 +58,7 @@ int extend_zones()
     return (0);
 }
 
-int alloc_zone(t_zone *zone, size_t size)
+t_zone *alloc_zone(t_zone *zone, size_t size)
 {
     uint32_t block_size = 0; // 0 is default for single allocation
 
@@ -72,7 +72,7 @@ int alloc_zone(t_zone *zone, size_t size)
     {
         zone->mem = alloc(size);
         if (zone->mem == NULL)
-            return (-1);
+            return (NULL);
         zone->type = ZONE_TYPE_SINGLE;
         zone->size = size;
     }
@@ -102,7 +102,7 @@ int alloc_zone(t_zone *zone, size_t size)
         write_u32_to_array(zone->mem + 12, start_of_user_memory);
     }
 
-    return (0);
+    return (zone);
 }
 
 uint32_t get_max_nbr_of_blocks(size_t size, uint32_t block_size)

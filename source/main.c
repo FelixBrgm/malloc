@@ -1,9 +1,9 @@
 #include "malloc.h"
 int main()
 {
-    for (size_t i = 0; i < 200 * 170 * 4; i++)
+    for (size_t i = 0; i < 10000 ; i++)
     {
-        void *test = ft_malloc(1);
+        void *test = ft_malloc(10);
         printf("POINTER: %p\n", test);
     }
 

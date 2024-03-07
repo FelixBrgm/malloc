@@ -48,8 +48,9 @@ void *alloc(size_t size);
 void dealloc(void *ptr, size_t size);
 
 void *get_block_memory(size_t size, uint8_t block_type);
+void *get_single_memory(size_t size);
 
-int add_zone(size_t size);
+t_zone *add_zone(size_t size);
 
 // Helper
 void write_u32_to_array(uint8_t array[], uint32_t value);
