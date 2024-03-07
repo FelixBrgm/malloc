@@ -21,8 +21,8 @@
 #define MIN_BLOCKS_IN_ZONE 100
 
 // Zone types
-#define ZONE_TYPE_SINGLE (uint8_t)0
-#define ZONE_TYPE_BLOCK (uint8_t)1
+#define ZONE_TYPE_SINGLE (uint8_t)1
+#define ZONE_TYPE_BLOCK (uint8_t)2
 
 typedef struct s_zone
 {
@@ -42,13 +42,10 @@ typedef struct s_storage
 extern t_storage storage;
 
 void *ft_malloc(size_t size);
-void free(void *ptr);
+void ft_free(void *ptr);
 
 void *alloc(size_t size);
 void dealloc(void *ptr, size_t size);
-
-void *get_block_memory(size_t size, uint8_t block_type);
-void *get_single_memory(size_t size);
 
 t_zone *add_zone(size_t size);
 
@@ -57,4 +54,6 @@ void write_u32_to_array(uint8_t array[], uint32_t value);
 uint32_t read_u32_from_array(const uint8_t array[]);
 uint8_t get_bit(uint8_t value, uint8_t pos);
 void activate_bit(uint8_t *ptr, uint8_t index);
+void clear_bit(uint8_t *ptr, int bit);
+
 #endif
