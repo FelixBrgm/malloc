@@ -7,7 +7,7 @@ t_storage storage = {
     .block_sizes = BLOCK_SIZES,
 };
 
-void *malloc(size_t size)
+void *ft_malloc(size_t size)
 {
     if (storage.page_size == 0)
         storage.page_size = getpagesize();
@@ -17,41 +17,18 @@ void *malloc(size_t size)
 
     for (size_t i = 0; i < BLOCK_SIZES_LEN; i++)
     {
-        const uint16_t block_size = storage.block_sizes[i];
-
+        const uint32_t block_size = storage.block_sizes[i];
         if (size <= block_size)
         {
-            const void *res = get_memory(size, block_size);
+            void *res = get_block_memory(size, block_size);
             if (res != NULL)
                 return (res);
-            // add another zone like that
-            return (get_memory(size, block_size));
+            add_zone(size);
+            return (get_block_memory(size, block_size));
         }
     }
 
-    // if (size <= TINY_ALLOC_SIZE)
-    // {
-    //     void *res = get_tiny_mem(size);
-    //     if (res != NULL)
-    //         return (res);
-    //     printf("NEW ZONE\n");
-    //     add_zone(size);
-    //     res = get_tiny_mem(size);
-    //     return (res);
-    // }
-    // else if (size <= SMALL_ALLOC_SIZE)
-    // {
-    //     // void *res = get_small_mem(size);
-    //     // if (res == NULL)
-    //     //     add_zone(size);
-    //     // return (get_small_mem(size));
-    // }
-    // else
-    // {
-    //     if (add_zone(size))
-    //         return (NULL);
-    //     return (get_large_mem(size));
-    // }
+    // ALLOCATE SINGLE
 
     return NULL;
 }

@@ -36,22 +36,24 @@ typedef struct s_storage
 	t_zone *zones;
 	size_t capacity;
 	uint32_t page_size;
-	uint16_t block_sizes[BLOCK_SIZES_LEN];
+	uint32_t block_sizes[BLOCK_SIZES_LEN];
 } t_storage;
 
 extern t_storage storage;
 
-void *malloc(size_t size);
+void *ft_malloc(size_t size);
 void free(void *ptr);
 
 void *alloc(size_t size);
 void dealloc(void *ptr, size_t size);
 
-void *get_memory(size_t size, uint8_t block_type);
+void *get_block_memory(size_t size, uint8_t block_type);
 
 int add_zone(size_t size);
 
 // Helper
 void write_u32_to_array(uint8_t array[], uint32_t value);
-
+uint32_t read_u32_from_array(const uint8_t array[]);
+uint8_t get_bit(uint8_t value, uint8_t pos);
+void activate_bit(uint8_t *ptr, uint8_t index);
 #endif
