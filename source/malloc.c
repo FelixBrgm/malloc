@@ -28,9 +28,7 @@ void *ft_malloc(size_t size)
         }
     }
 
-    // ALLOCATE SINGLE
-
-    return NULL;
+    return (get_single_memory(size));
 }
 
 void free(void *ptr)

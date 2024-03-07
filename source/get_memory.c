@@ -39,3 +39,11 @@ void *get_block_memory(size_t size, uint8_t block_type)
 
     return (NULL);
 }
+
+void *get_single_memory(size_t size)
+{
+    t_zone *new = add_zone(size);
+    if (new == NULL)
+        return (NULL);
+    return new->mem;
+}
