@@ -8,19 +8,21 @@
 #include <unistd.h>	  // getpageSize()
 #include <stdint.h>	  //  uint8_t
 
-// CONFIG
-#define INITIAL_ZONE_LEN 10
+#ifndef MAP_ANONYMOUS
+#define MAP_ANONYMOUS 0x20 // cant find MAP_ANONYMOUS in sys/mman.h when running on 42MacOs
+#endif
 
-#define TINY_TYPE 1
-#define TINY_ALLOC_SIZE 32
-#define TINY_ZONE_PAGE_MLTPLR 1
+#define BLOCK_SIZES_LEN 1
+#define BLOCK_SIZES \
+	{               \
+		32          \
+	} // This have to be in ascending order to function effeciently
 
-#define SMALL_TYPE 2
-#define SMALL_ALLOC_SIZE 128
-#define SMALL_ZONE_PAGE_MLTPLR 4
+#define MIN_BLOCKS_IN_ZONE 100
 
-#define LARGE_TYPE_FREE 254
-#define LARGE_TYPE_USED 255
+// Zone types
+#define ZONE_TYPE_SINGLE (uint8_t)0
+#define ZONE_TYPE_BLOCK (uint8_t)1
 
 typedef struct s_zone
 {
@@ -33,8 +35,8 @@ typedef struct s_storage
 {
 	t_zone *zones;
 	size_t capacity;
-	size_t index;
-	int page_size;
+	uint32_t page_size;
+	uint16_t block_sizes[BLOCK_SIZES_LEN];
 } t_storage;
 
 extern t_storage storage;
@@ -45,15 +47,11 @@ void free(void *ptr);
 void *alloc(size_t size);
 void dealloc(void *ptr, size_t size);
 
-// Visualizer
-void show_alloc_mem(void);
+void *get_memory(size_t size, uint8_t block_type);
 
 int add_zone(size_t size);
-void *get_tiny_mem(size_t size);
-void *get_large_mem(size_t size);
 
 // Helper
-uint16_t read_uint8_ts_as_uint16_t(uint8_t *ptr);
-void write_uint16_t_as_uint8_ts(uint8_t *ptr, uint16_t s);
+void write_u32_to_array(uint8_t array[], uint32_t value);
 
 #endif
