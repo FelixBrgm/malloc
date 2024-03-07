@@ -9,7 +9,7 @@ endif
 NAME = libft_malloc_$(HOSTTYPE).so
 
 # LINKED_LIST
-MALLOC_C_FILES := malloc.c helper.c zone.c get_memory.c 
+MALLOC_C_FILES := malloc.c free.c helper.c zone.c 
 
 # LIBS
 CFILES := $(MALLOC_C_FILES)

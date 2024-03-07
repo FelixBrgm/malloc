@@ -1,10 +1,13 @@
 #include "malloc.h"
 int main()
 {
-    for (size_t i = 0; i < 10000 ; i++)
+    for (size_t i = 0; i < 200 * 100; i++)
     {
         void *test = ft_malloc(10);
-        printf("POINTER: %p\n", test);
+        ft_free(test);
+        printf("POINTER 1: %p\n", test);
+        test = ft_malloc(10);
+        printf("POINTER 2: %p\n", test);
     }
 
     printf("Capacity %i\n", storage.capacity);

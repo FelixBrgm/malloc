@@ -88,7 +88,7 @@ t_zone *alloc_zone(t_zone *zone, size_t size)
 
         zone->mem = alloc(needed_space);
         if (zone->mem == NULL)
-            return (-1);
+            return (NULL);
         zone->type = ZONE_TYPE_BLOCK;
         zone->size = needed_space;
 
