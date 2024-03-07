@@ -2,8 +2,9 @@
 
 t_zone *get_empty_zone(void);
 int extend_zones();
-void bzero(uint8_t *ptr, size_t size);
+void ft_bzero(uint8_t *ptr, size_t size);
 int alloc_zone(t_zone *zone, size_t size);
+uint32_t get_max_nbr_of_blocks(size_t size, uint32_t block_size);
 
 int add_zone(size_t size)
 {
@@ -44,7 +45,7 @@ int extend_zones()
 
         storage.capacity = storage.capacity * 2;
         t_zone *new = alloc(storage.capacity * sizeof(t_zone));
-        bzero(new, storage.capacity * sizeof(t_zone));
+        ft_bzero((uint8_t *)new, storage.capacity * sizeof(t_zone));
 
         for (size_t i = 0; i < storage.capacity; i++)
         {
@@ -63,7 +64,7 @@ int alloc_zone(t_zone *zone, size_t size)
 
     for (size_t i = 0; i < BLOCK_SIZES_LEN; i++)
     {
-        if (storage.block_sizes[i] <= size)
+        if (storage.block_sizes[i] >= size)
             block_size = storage.block_sizes[i];
     }
 
@@ -91,14 +92,14 @@ int alloc_zone(t_zone *zone, size_t size)
         zone->type = ZONE_TYPE_BLOCK;
         zone->size = needed_space;
 
-        bzero(zone->mem, needed_space);
+        ft_bzero(zone->mem, needed_space);
 
         const uint32_t max_nbr_of_blocks = get_max_nbr_of_blocks(needed_space, block_size);
         const uint32_t start_of_user_memory = 16 + (max_nbr_of_blocks / 8) + 1;
         write_u32_to_array(zone->mem, 0); // Number of allocated blocks
         write_u32_to_array(zone->mem + 4, max_nbr_of_blocks);
         write_u32_to_array(zone->mem + 8, block_size);
-        write_u32_to_array(zone->mem + 8, start_of_user_memory);
+        write_u32_to_array(zone->mem + 12, start_of_user_memory);
     }
 
     return (0);
@@ -142,7 +143,7 @@ t_zone *get_empty_zone(void)
     return (NULL);
 }
 
-void bzero(uint8_t *ptr, size_t size)
+void ft_bzero(uint8_t *ptr, size_t size)
 {
     if (ptr == NULL)
         return;
