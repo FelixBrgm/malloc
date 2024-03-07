@@ -1,7 +1,13 @@
 TODO
 
+- [X] block allocation
+- [ ] single allocation
+- [ ] single free
+- [ ] block free
+
+- [ ] lifetimes
+- [ ] multithreading
 - [ ] dynamic allocation
-- [ ] block allocation
 - [ ] size_t in max instead of uint32_t
 - [ ] allignment %8 for f64 and stuff - LATER!!!
 
