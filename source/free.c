@@ -5,7 +5,7 @@ void free_single(t_zone *zone);
 void free_block(t_zone *zone, uint8_t *ptr);
 void dealloc_zone(t_zone *zone);
 
-void ft_free(void *ptr)
+void free(void *ptr)
 {
     if (ptr == NULL)
         return;

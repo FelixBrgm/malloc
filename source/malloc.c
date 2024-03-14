@@ -10,7 +10,7 @@ t_storage storage = {
 void *get_block_memory(size_t size, uint8_t block_type);
 void *get_single_memory(size_t size);
 
-void *ft_malloc(size_t size)
+void *malloc(size_t size)
 {
     if (storage.page_size == 0)
         storage.page_size = getpagesize();

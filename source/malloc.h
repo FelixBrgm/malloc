@@ -41,8 +41,8 @@ typedef struct s_storage
 
 extern t_storage storage;
 
-void *ft_malloc(size_t size);
-void ft_free(void *ptr);
+void *malloc(size_t size);
+void free(void *ptr);
 
 void *alloc(size_t size);
 void dealloc(void *ptr, size_t size);
