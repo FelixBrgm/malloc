@@ -96,10 +96,13 @@ t_zone *alloc_zone(t_zone *zone, size_t size)
 
         const uint32_t max_nbr_of_blocks = get_max_nbr_of_blocks(needed_space, block_size);
         const uint32_t start_of_user_memory = 16 + (max_nbr_of_blocks / 8) + 1;
-        write_u32_to_array(zone->mem, 0); // Number of allocated blocks
-        write_u32_to_array(zone->mem + 4, max_nbr_of_blocks);
-        write_u32_to_array(zone->mem + 8, block_size);
-        write_u32_to_array(zone->mem + 12, start_of_user_memory);
+
+        t_metadata_block metadata = {0};
+        metadata.nbr_of_used_blocks = 0;
+        metadata.max_nbr_of_blocks = max_nbr_of_blocks;
+        metadata.size_of_each_block = block_size;
+        metadata.index_of_first_alloc = start_of_user_memory;
+        write_metadata_block_from_array(zone->mem, metadata);
     }
 
     return (zone);

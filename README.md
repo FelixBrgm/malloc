@@ -5,6 +5,14 @@ TODO
 - [X] single free
 - [X] block free
 
+- [X] struct for blockmetadata 
+- [ ] realloc
+- [ ] symbolic link
+- [ ] alignment
+- [ ] 
+
+
+
 - [ ] make reading/writing in blocks into struct for easier access so that offset and so gets easier
 - [ ] sorted zones for "quick" access
 - [ ] lifetimes
