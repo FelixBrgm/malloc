@@ -34,6 +34,25 @@ uint32_t read_u32_from_array(const uint8_t array[])
     return value;
 }
 
+t_metadata_block read_metadata_block_from_array(uint8_t *ptr)
+{
+    t_metadata_block data = {0};
+
+    data.nbr_of_used_blocks = read_u32_from_array(ptr);
+    data.max_nbr_of_blocks = read_u32_from_array(ptr + 4);
+    data.size_of_each_block = read_u32_from_array(ptr + 8);
+    data.index_of_first_alloc = read_u32_from_array(ptr + 12);
+
+    return (data);
+}
+void write_metadata_block_from_array(uint8_t *ptr, t_metadata_block data)
+{
+    write_u32_to_array(ptr, data.nbr_of_used_blocks);
+    write_u32_to_array(ptr + 4, data.max_nbr_of_blocks);
+    write_u32_to_array(ptr + 8, data.size_of_each_block);
+    write_u32_to_array(ptr + 12, data.index_of_first_alloc);
+}
+
 uint8_t get_bit(uint8_t value, uint8_t pos)
 {
     return ((value & (1 << (7 - pos))) != 0);

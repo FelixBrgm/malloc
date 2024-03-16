@@ -27,21 +27,19 @@ void free_single(t_zone *zone)
 
 void free_block(t_zone *zone, uint8_t *ptr)
 {
-    const uint32_t start_of_blocks = read_u32_from_array(zone->mem + 12);
+    t_metadata_block metadata = read_metadata_block_from_array(zone->mem);
     const uint32_t relative_ptr = zone->mem - ptr;
-    const uint32_t size_of_blocks = read_u32_from_array(zone->mem + 8);
-    const uint32_t index = relative_ptr / size_of_blocks;
+    const uint32_t index = relative_ptr / metadata.size_of_each_block;
 
     const uint8_t byte = index / 8;
     const uint8_t bit = index % 8;
 
     clear_bit(zone->mem + byte, bit);
 
-    uint32_t nbr_of_used_blocks = read_u32_from_array(zone->mem);
-    nbr_of_used_blocks--;
-    write_u32_to_array(zone->mem, nbr_of_used_blocks);
+    metadata.nbr_of_used_blocks--;
+    write_metadata_block_from_array(zone->mem, metadata);
 
-    if (nbr_of_used_blocks == 0)
+    if (metadata.nbr_of_used_blocks == 0)
         dealloc_zone(zone);
 }
 
