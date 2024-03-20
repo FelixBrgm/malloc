@@ -5,8 +5,8 @@ TODO
 - [X] single free
 - [X] block free
 - [X] struct for blockmetadata 
+- [X] realloc
 
-- [ ] realloc
 - [ ] symbolic link
 - [ ] alignment
 - [ ] 
