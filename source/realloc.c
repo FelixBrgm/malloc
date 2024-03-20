@@ -20,7 +20,7 @@ void *ft_realloc(void *ptr, size_t size)
             return (ptr);
     }
 
-    uint8_t *new_ptr = alloc(size);
+    uint8_t *new_ptr = ft_malloc(size);
     if (new_ptr == NULL)
         return (NULL);
     for (size_t i = 0; i < size; i++)
