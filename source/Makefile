@@ -1,12 +1,13 @@
 AR := ar rcs
 # CFLAGS := -Wall -Werror -Wextra
 
-
 ifeq ($(HOSTTYPE),)
-HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
+
 NAME = libft_malloc_$(HOSTTYPE).so
+NAME_SL = libft_malloc.so
 
 # LINKED_LIST
 MALLOC_C_FILES := malloc.c free.c helper.c zone.c realloc.c
@@ -17,8 +18,10 @@ OFILES := $(CFILES:.c=.o)
 
 all: $(NAME)
 
+
 $(NAME): $(OFILES)
 	@$(AR) $(NAME) $(OFILES)
+	@ln -sf $(NAME) $(NAME_SL)
 	@echo "Compiled!"
 
 %.o : %.c
@@ -30,6 +33,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f $(NAME_SL)
 	@rm -f ./tester
 	@echo "FCleaned!"
 
