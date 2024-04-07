@@ -5,8 +5,9 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-NAME = build/libft_malloc_$(HOSTTYPE).so
-NAME_SL = libft_malloc.so
+NAME := build/libft_malloc_$(HOSTTYPE).so
+NAME_SL := libft_malloc.so
+LD_PRELOAD_CMD := LD_PRELOAD=$(shell pwd)/libft_malloc.so
 
 # LIBS
 OBJDIR := ./build
@@ -38,8 +39,20 @@ fclean: clean
 
 re: fclean all
 
-tests_main: all
+test: test_programs test_main 
+
+test_main: all
 	@gcc -o tests/test tests/main.c
-	@echo "Test compiled!"
-	@LD_PRELOAD=$(shell pwd)/libft_malloc.so ./tests/test
+	@echo "(main): Test compiled!"
+	@$(LD_PRELOAD_CMD) ./tests/test
 	@rm -f ./tests/test
+
+test_programs: all
+	@echo "Testing programs..."
+	@-$(LD_PRELOAD_CMD) /bin/ls > /dev/null
+	@if [ $$? -eq 0 ]; then \
+		echo "\033[0;32m/bin/ls passed\033[0m"; \
+	else \
+		echo "\033[0;31mls failed\033[0m"; \
+	fi
+	@echo 
