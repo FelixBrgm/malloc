@@ -24,7 +24,7 @@ $(NAME): $(OFILES)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(@D)
-	gcc $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 clean: 
 	@rm -rf $(OBJDIR)
@@ -38,4 +38,8 @@ fclean: clean
 
 re: fclean all
 
-# export LD_PRELOAD=$(pwd)/libft_malloc.so  
+tests_main: all
+	@gcc -o tests/test tests/main.c
+	@echo "Test compiled!"
+	@LD_PRELOAD=$(shell pwd)/libft_malloc.so ./tests/test
+	@rm -f ./tests/test
