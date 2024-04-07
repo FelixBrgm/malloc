@@ -71,6 +71,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] make reading/writing in blocks into struct for easier access so that offset and so gets easier
 - [X] symbolic link
 
+- [ ] write visualizer that works well
+- [ ] fix bash errors
+
 - [ ] alignment
 
 - [ ] sorted zones for "quick" access
