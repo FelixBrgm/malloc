@@ -63,4 +63,5 @@ t_zone *get_zone(uint8_t *ptr)
             break;
         }
     }
+    return (zone);
 }
