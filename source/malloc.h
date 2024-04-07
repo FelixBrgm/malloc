@@ -24,14 +24,15 @@
 #define ZONE_TYPE_SINGLE (uint8_t)1
 #define ZONE_TYPE_BLOCK (uint8_t)2
 
-typedef struct s_metadata_block {
+typedef struct s_metadata_block
+{
 	uint32_t nbr_of_used_blocks;
 	uint32_t max_nbr_of_blocks;
 	uint32_t size_of_each_block;
 	uint32_t index_of_first_alloc;
 } t_metadata_block;
 
-// Metadata functions  
+// Metadata functions
 t_metadata_block read_metadata_block_from_array(uint8_t *ptr);
 void write_metadata_block_from_array(uint8_t *ptr, t_metadata_block metadata);
 
@@ -52,9 +53,9 @@ typedef struct s_storage
 
 extern t_storage storage;
 
-void *ft_malloc(size_t size);
-void ft_free(void *ptr);
-void *ft_realloc(void *ptr, size_t size);
+void *malloc(size_t size);
+void free(void *ptr);
+void *realloc(void *ptr, size_t size);
 
 void *alloc(size_t size);
 void dealloc(void *ptr, size_t size);

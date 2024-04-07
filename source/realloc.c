@@ -2,11 +2,10 @@
 
 t_zone *get_zone(uint8_t *ptr);
 
-void *ft_realloc(void *ptr, size_t size)
+void *realloc(void *ptr, size_t size)
 {
-    printf("Hello\n");
     if (ptr == NULL)
-        return (NULL);
+        return (malloc(size));
 
     t_zone *zone = get_zone(ptr);
     if (zone == NULL)
@@ -15,12 +14,11 @@ void *ft_realloc(void *ptr, size_t size)
     if (zone->type == ZONE_TYPE_BLOCK)
     {
         t_metadata_block metadata = read_metadata_block_from_array(zone->mem);
-        printf("Value: %i\n", metadata.size_of_each_block);
         if (metadata.size_of_each_block >= size)
             return (ptr);
     }
 
-    uint8_t *new_ptr = ft_malloc(size);
+    uint8_t *new_ptr = malloc(size);
     if (new_ptr == NULL)
         return (NULL);
     for (size_t i = 0; i < size; i++)
@@ -28,6 +26,6 @@ void *ft_realloc(void *ptr, size_t size)
         new_ptr[i] = ((uint8_t *)ptr)[i];
     }
 
-    ft_free(ptr);
+    free(ptr);
     return (new_ptr);
 }
