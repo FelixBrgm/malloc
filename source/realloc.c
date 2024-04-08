@@ -9,7 +9,7 @@ void *realloc(void *ptr, size_t size)
 
     t_zone *zone = get_zone(ptr);
     if (zone == NULL)
-        return (NULL);
+        return (malloc(size));
 
     if (zone->type == ZONE_TYPE_BLOCK)
     {
