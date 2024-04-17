@@ -28,13 +28,13 @@ void free_single(t_zone *zone)
 void free_block(t_zone *zone, uint8_t *ptr)
 {
     t_metadata_block metadata = read_metadata_block_from_array(zone->mem);
-    const uint32_t relative_ptr = zone->mem - ptr;
+    const uint32_t relative_ptr = ptr - zone->mem - 16;
     const uint32_t index = relative_ptr / metadata.size_of_each_block;
 
     const uint8_t byte = index / 8;
     const uint8_t bit = index % 8;
 
-    clear_bit(zone->mem + byte, bit);
+    clear_bit(zone->mem + byte + 16, bit);
 
     metadata.nbr_of_used_blocks--;
     write_metadata_block_from_array(zone->mem, metadata);
