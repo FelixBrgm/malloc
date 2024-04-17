@@ -64,6 +64,9 @@ t_zone *alloc_zone(t_zone *zone, size_t size)
 
     for (size_t i = 0; i < BLOCK_SIZES_LEN; i++)
     {
+        const uint8_t isSet = block_size != 0;
+        if (isSet)
+            continue;
         if (storage.block_sizes[i] >= size)
             block_size = storage.block_sizes[i];
     }
