@@ -75,6 +75,6 @@ void clear_bit(uint8_t *ptr, int bit)
         return;
     }
 
-    uint8_t mask = ~(1 << bit);
+    uint8_t mask = ~(1 << (0x7 - bit));
     *ptr &= mask;
 }
