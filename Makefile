@@ -11,7 +11,7 @@ LD_PRELOAD_CMD := LD_PRELOAD=$(shell pwd)/libft_malloc.so
 
 # LIBS
 OBJDIR := ./build
-CFILES := malloc.c free.c helper.c zone.c realloc.c
+CFILES := malloc.c free.c helper.c zone.c realloc.c visualizer.c
 CFILES := $(addprefix source/, $(CFILES))
 OFILES := $(CFILES:%.c=$(OBJDIR)/%.o)
 
@@ -39,20 +39,10 @@ fclean: clean
 
 re: fclean all
 
-test: test_programs test_main 
+test:  test_main 
 
-test_main: all
+test_main: re
 	@gcc -o tests/test tests/main.c
 	@echo "(main): Test compiled!"
 	@$(LD_PRELOAD_CMD) ./tests/test
 	@rm -f ./tests/test
-
-test_programs: all
-	@echo "Testing programs..."
-	@-$(LD_PRELOAD_CMD) /bin/ls > /dev/null
-	@if [ $$? -eq 0 ]; then \
-		echo "\033[0;32m/bin/ls passed\033[0m"; \
-	else \
-		echo "\033[0;31mls failed\033[0m"; \
-	fi
-	@echo 

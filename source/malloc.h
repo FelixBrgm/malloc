@@ -62,6 +62,8 @@ void dealloc(void *ptr, size_t size);
 
 t_zone *add_zone(size_t size);
 
+void show_alloc_mem(void);
+
 // Helper
 void write_u32_to_array(uint8_t array[], uint32_t value);
 uint32_t read_u32_from_array(const uint8_t array[]);
