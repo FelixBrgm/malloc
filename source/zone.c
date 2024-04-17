@@ -135,7 +135,7 @@ uint32_t get_max_nbr_of_blocks(size_t size, uint32_t block_size)
 
 t_zone *get_empty_zone(void)
 {
-    int i = 0;
+    size_t i = 0;
 
     while (i < storage.capacity)
     {
@@ -150,8 +150,8 @@ void ft_bzero(uint8_t *ptr, size_t size)
 {
     if (ptr == NULL)
         return;
-    int i = 0;
-    while (i < storage.page_size)
+    size_t i = 0;
+    while (i < storage.page_size || i < size)
     {
         ptr[i] = 0;
         i++;

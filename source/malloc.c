@@ -7,7 +7,7 @@ t_storage storage = {
     .block_sizes = BLOCK_SIZES,
 };
 
-void *get_block_memory(size_t size, uint8_t block_type);
+void *get_block_memory(uint8_t block_type);
 void *get_single_memory(size_t size);
 
 void *malloc(size_t size)
@@ -23,18 +23,18 @@ void *malloc(size_t size)
         const uint32_t block_size = storage.block_sizes[i];
         if (size <= block_size)
         {
-            void *res = get_block_memory(size, block_size);
+            void *res = get_block_memory(block_size);
             if (res != NULL)
                 return (res);
             add_zone(size);
-            return (get_block_memory(size, block_size));
+            return (get_block_memory(block_size));
         }
     }
 
     return (get_single_memory(size));
 }
 
-void *get_block_memory(size_t size, uint8_t block_type)
+void *get_block_memory(uint8_t block_type)
 {
     for (size_t i = 0; i < storage.capacity; i++)
     {
@@ -46,6 +46,8 @@ void *get_block_memory(size_t size, uint8_t block_type)
             continue;
 
         t_metadata_block metadata = read_metadata_block_from_array(zone->mem);
+        if (metadata.size_of_each_block < block_type)
+            continue;
         const uint32_t isEnoughSpace = metadata.nbr_of_used_blocks < metadata.max_nbr_of_blocks;
         if (!isEnoughSpace)
             continue;
