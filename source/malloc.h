@@ -12,10 +12,11 @@
 #define MAP_ANONYMOUS 0x20 // cant find MAP_ANONYMOUS in sys/mman.h when running on 42MacOs
 #endif
 
-#define BLOCK_SIZES_LEN 1
+#define BLOCK_SIZES_LEN 2
 #define BLOCK_SIZES \
 	{               \
-		32          \
+		32,         \
+			256     \
 	} // This have to be in ascending order to function effeciently
 
 #define MIN_BLOCKS_IN_ZONE 100
