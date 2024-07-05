@@ -1,5 +1,5 @@
 # Use an official lightweight base image
-FROM debian:bullseye-slim
+FROM --platform=linux/amd64 debian:bullseye-slim
 
 # Install necessary tools
 RUN apt-get update && apt-get install -y \
