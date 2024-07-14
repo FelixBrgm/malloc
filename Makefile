@@ -1,4 +1,4 @@
-SO_FLAGS := -shared -fPIC
+SO_FLAGS := -g -shared -fPIC
 CFLAGS := -I. -fPIC # -Wall -Werror -Wextra
 
 ifeq ($(HOSTTYPE),)
