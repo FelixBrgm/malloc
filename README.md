@@ -70,12 +70,11 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] realloc
 - [X] make reading/writing in blocks into struct for easier access so that offset and so gets easier
 - [X] symbolic link
+- [X] make so that when a 255 reagion exists and a below 32 wants to be allocated a new zone for 32 gets created
+- [X] fix bash errors
+- [X] alignment
 
 - [ ] write visualizer that works well
-- [ ] make so that when a 255 reagion exists and a below 32 wants to be allocated a new zone for 32 gets created
-- [ ] fix bash errors
-
-- [ ] alignment
 
 - [ ] sorted zones for "quick" access
 - [ ] lifetimes

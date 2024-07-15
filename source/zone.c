@@ -82,7 +82,8 @@ t_zone *alloc_zone(t_zone *zone, size_t size)
     else
     {
         const uint64_t needed_metadata_space = 16;
-        const uint64_t min_needed_bookkeeping_space = needed_metadata_space + (MIN_BLOCKS_IN_ZONE / 8) + 1;
+        const uint64_t alignment_buffer = 16;
+        const uint64_t min_needed_bookkeeping_space = needed_metadata_space + (MIN_BLOCKS_IN_ZONE / 8) + 1 + alignment_buffer;
         const uint64_t min_needed_user_space = block_size * MIN_BLOCKS_IN_ZONE + min_needed_bookkeeping_space;
 
         const uint64_t needed_pages = (min_needed_user_space / storage.page_size) + 1; // +1 because when dividing it rounds down.
@@ -98,8 +99,8 @@ t_zone *alloc_zone(t_zone *zone, size_t size)
         ft_bzero(zone->mem, needed_space);
 
         const uint32_t max_nbr_of_blocks = get_max_nbr_of_blocks(needed_space, block_size);
-        uint32_t start_of_user_memory = 16 + (max_nbr_of_blocks / 8) + 1;
-        const uint32_t needed_alignment = start_of_user_memory % 16 ? 16 - (start_of_user_memory % (uint32_t)16) : 0;
+        uint32_t start_of_user_memory = needed_metadata_space + (max_nbr_of_blocks / 8) + 1;
+        const uint32_t needed_alignment = start_of_user_memory % alignment_buffer ? alignment_buffer - (start_of_user_memory % (uint32_t)16) : 0;
         start_of_user_memory += needed_alignment;
 
         t_metadata_block metadata = {0};
@@ -119,6 +120,7 @@ uint32_t get_max_nbr_of_blocks(size_t size, uint32_t block_size)
         return (0);
 
     uint32_t nbr_of_max_blocks = 0;
+    size -= 16;
     size -= 16;
     uint8_t bits = 0;
     size -= 1; // Starting with one less byte for bookkeeping
