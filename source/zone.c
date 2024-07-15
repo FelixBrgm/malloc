@@ -129,8 +129,8 @@ uint32_t get_max_nbr_of_blocks(size_t size, uint32_t block_size)
         if (bits >= 8)
         {
             bits = 0;
+            size -= 1;
         }
-        size -= 1;
     }
 
     return (nbr_of_max_blocks);
