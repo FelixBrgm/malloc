@@ -1,12 +1,10 @@
 #ifndef MALLOC_H
 #define MALLOC_H
 
-#include <stdio.h> // DEBUG
-
 #include <stddef.h>	  // size_t
 #include <sys/mman.h> // mmap + FLAGS
 #include <unistd.h>	  // getpageSize()
-#include <stdint.h>	  //  uint8_t
+#include <stdint.h>	  //  uintXX_t
 
 #ifndef MAP_ANONYMOUS
 #define MAP_ANONYMOUS 0x20 // cant find MAP_ANONYMOUS in sys/mman.h when running on 42MacOs
@@ -15,8 +13,8 @@
 #define BLOCK_SIZES_LEN 2
 #define BLOCK_SIZES \
 	{               \
-		32,         \
-			256     \
+		32,        \
+		256,        \
 	} // This have to be in ascending order to function effeciently
 
 #define MIN_BLOCKS_IN_ZONE 100
