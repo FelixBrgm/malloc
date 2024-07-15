@@ -7,7 +7,7 @@ t_storage storage = {
     .block_sizes = BLOCK_SIZES,
 };
 
-void *get_block_memory(uint8_t block_type);
+void *get_block_memory(uint32_t block_type);
 void *get_single_memory(size_t size);
 
 void *malloc(size_t size)
@@ -34,7 +34,7 @@ void *malloc(size_t size)
     return (get_single_memory(size));
 }
 
-void *get_block_memory(uint8_t block_type)
+void *get_block_memory(uint32_t block_type)
 {
     for (size_t i = 0; i < storage.capacity; i++)
     {
