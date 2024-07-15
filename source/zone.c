@@ -98,7 +98,9 @@ t_zone *alloc_zone(t_zone *zone, size_t size)
         ft_bzero(zone->mem, needed_space);
 
         const uint32_t max_nbr_of_blocks = get_max_nbr_of_blocks(needed_space, block_size);
-        const uint32_t start_of_user_memory = 16 + (max_nbr_of_blocks / 8) + 1;
+        uint32_t start_of_user_memory = 16 + (max_nbr_of_blocks / 8) + 1;
+        const uint32_t needed_alignment = start_of_user_memory % 16 ? 16 - (start_of_user_memory % (uint32_t)16) : 0;
+        start_of_user_memory += needed_alignment;
 
         t_metadata_block metadata = {0};
         metadata.nbr_of_used_blocks = 0;
