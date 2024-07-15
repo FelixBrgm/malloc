@@ -75,6 +75,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] alignment
 
 - [ ] write visualizer that works well
+- [ ] protect against malloc ver max ram or so u know
 
 - [ ] sorted zones for "quick" access
 - [ ] lifetimes
