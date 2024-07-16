@@ -1,18 +1,36 @@
 #include "malloc.h"
+#include <sys/resource.h>
 
 void *alloc(size_t size)
 {
     size_t *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (ptr == MAP_FAILED)
-        return NULL;
+        return (NULL);
+    if (check_alloc_size(size))
+        return (NULL);
     return ptr;
+}
+
+int check_alloc_size(size_t size)
+{
+    struct rlimit limit = {0};
+
+    if (getrlimit(RLIMIT_AS, &limit))
+        return (1);
+    if (storage.total_allocated_memory + size >= limit.rlim_cur)
+        return (2);
+
+    storage.total_allocated_memory += size;
+    return (0);
 }
 
 void dealloc(void *ptr, size_t size)
 {
     if (ptr != NULL && size > 0)
     {
-        munmap(ptr, size);
+        if (munmap(ptr, size))
+            return;
+        storage.total_allocated_memory -= size;
     }
 }
 
