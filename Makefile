@@ -11,7 +11,7 @@ LD_PRELOAD_CMD := LD_PRELOAD=$(shell pwd)/libft_malloc.so
 
 # LIBS
 OBJDIR := ./build
-CFILES := malloc.c free.c helper.c zone.c realloc.c visualizer.c
+CFILES := malloc.c free.c utils.c zone.c realloc.c visualizer.c
 CFILES := $(addprefix source/, $(CFILES))
 OFILES := $(CFILES:%.c=$(OBJDIR)/%.o)
 
