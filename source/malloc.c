@@ -5,6 +5,7 @@ t_storage storage = {
     .capacity = 0,
     .page_size = 0,
     .block_sizes = BLOCK_SIZES,
+    .total_allocated_memory = 0,
 };
 
 void *get_block_memory(uint32_t block_type);

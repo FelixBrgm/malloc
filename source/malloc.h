@@ -48,6 +48,7 @@ typedef struct s_storage
 	size_t capacity;
 	uint32_t page_size;
 	uint32_t block_sizes[BLOCK_SIZES_LEN];
+	uint64_t total_allocated_memory;
 } t_storage;
 
 extern t_storage storage;

@@ -73,9 +73,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] make so that when a 255 reagion exists and a below 32 wants to be allocated a new zone for 32 gets created
 - [X] fix bash errors
 - [X] alignment
+- [X] protect against malloc ver max ram or so u know
 
 - [ ] write visualizer that works well
-- [ ] protect against malloc ver max ram or so u know
 
 - [ ] sorted zones for "quick" access
 - [ ] lifetimes
