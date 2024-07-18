@@ -75,6 +75,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] alignment
 - [X] protect against malloc ver max ram or so u know
 
+- [ ] make functions static so that they can't be accessed from outside of malloc
 - [ ] write visualizer that works well
 
 - [ ] sorted zones for "quick" access
