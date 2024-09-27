@@ -1,7 +1,7 @@
 #include "malloc.h"
 #include <sys/resource.h>
 
-int check_alloc_size(size_t size)
+static int check_alloc_size(size_t size)
 {
     struct rlimit limit = {0};
 
