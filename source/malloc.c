@@ -8,9 +8,9 @@ t_storage storage = {
     .total_allocated_memory = 0,
 };
 
-void *get_block_memory(uint32_t block_type);
-void *get_single_memory(size_t size);
-uint8_t retrieve_page_size(void);
+static void *get_block_memory(uint32_t block_type);
+static void *get_single_memory(size_t size);
+static uint8_t retrieve_page_size(void);
 
 void *malloc(size_t size)
 {
@@ -36,7 +36,7 @@ void *malloc(size_t size)
     return (get_single_memory(size));
 }
 
-void *get_block_memory(uint32_t block_type)
+static void *get_block_memory(uint32_t block_type)
 {
     for (size_t i = 0; i < storage.capacity; i++)
     {
@@ -76,7 +76,7 @@ void *get_block_memory(uint32_t block_type)
     return (NULL);
 }
 
-void *get_single_memory(size_t size)
+static void *get_single_memory(size_t size)
 {
     t_zone *new = add_zone(size);
     if (new == NULL)
@@ -84,7 +84,7 @@ void *get_single_memory(size_t size)
     return new->mem;
 }
 
-uint8_t retrieve_page_size()
+static uint8_t retrieve_page_size()
 {
     if (storage.page_size == 0)
     {
