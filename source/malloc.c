@@ -10,11 +10,12 @@ t_storage storage = {
 
 void *get_block_memory(uint32_t block_type);
 void *get_single_memory(size_t size);
+uint8_t retrieve_page_size(void);
 
 void *malloc(size_t size)
 {
-    if (storage.page_size == 0)
-        storage.page_size = getpagesize();
+    if (retrieve_page_size())
+        return (NULL);
 
     if (size == 0)
         return (NULL);
@@ -81,4 +82,16 @@ void *get_single_memory(size_t size)
     if (new == NULL)
         return (NULL);
     return new->mem;
+}
+
+uint8_t retrieve_page_size()
+{
+    if (storage.page_size == 0)
+    {
+        long page_size = sysconf(_SC_PAGESIZE);
+        if (page_size == -1)
+            return (1);
+        storage.page_size = page_size;
+    }
+    return (0);
 }
