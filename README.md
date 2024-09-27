@@ -76,10 +76,11 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] protect against malloc ver max ram or so u know
 - [X]  getpagesize under OSX or sysconf(_SC_PAGESIZE) under linux
 - [X] make functions static so that they can't be accessed from outside of malloc
+- [X] write realloc so that it only copies from previous size
 
-- [ ] write realloc so that it only copies from previous size
 - [ ] write visualizer that works well
 
+---
 - [ ] sorted zones for "quick" access
 - [ ] lifetimes
 - [ ] multithreading
