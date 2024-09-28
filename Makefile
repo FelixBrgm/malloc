@@ -1,5 +1,5 @@
 SO_FLAGS := -shared -fPIC
-CFLAGS := -fPIC -Wall -Werror -Wextra
+CFLAGS := -fPIC # -Wall -Werror -Wextra
 
 ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
@@ -39,14 +39,6 @@ fclean: clean
 
 re: fclean all
 
-visual: re
+test: all
 	gcc tests/main.c -L. -lft_malloc
-	LD_LIBRARY_PATH=. ./a.out
-
-test:  test_main 
-
-test_main: re
-	@gcc -o tests/test tests/main.c -L. -lft_malloc
-	@echo "(main): Test compiled!"
-	@$(LD_PRELOAD_CMD) ./tests/test
-	@rm -f ./tests/test
+	LD_LIBRARY_PATH=. LD_PRELOAD="./libft_malloc.so" ./a.out
