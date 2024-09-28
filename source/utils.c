@@ -1,5 +1,4 @@
 #include "malloc.h"
-#include <sys/resource.h>
 
 static int check_alloc_size(size_t size)
 {

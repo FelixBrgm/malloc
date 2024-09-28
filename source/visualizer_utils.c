@@ -1,7 +1,5 @@
 #include "malloc.h"
 
-#include <unistd.h>
-
 static void				tf_write_int_recusive(uint64_t nbr, uint64_t base_nbr, char *base);
 static uint64_t	ft_check_if_valid_base(char *base, uint64_t base_nbr);
 
