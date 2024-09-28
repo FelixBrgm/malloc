@@ -1,10 +1,9 @@
 #include "malloc.h"
 
 static uint64_t show_zone(t_zone *zone);
-static int ft_strlen(char *str);
 static  uint64_t show_zone_single(t_zone *zone);
 static uint64_t show_zone_block(t_zone *zone);
-
+void	ft_putnbr_base_u_long(uint64_t nbr, char *base);
 
 void show_alloc_mem(void)
 {  
@@ -42,7 +41,7 @@ void show_alloc_mem(void)
 static uint64_t show_zone(t_zone *zone)
 {
     if (zone == NULL)
-        return;
+        return (0);
     
     if (zone->type == ZONE_TYPE_SINGLE)
         return (show_zone_single(zone));
@@ -54,14 +53,14 @@ static uint64_t show_zone(t_zone *zone)
 static uint64_t show_zone_single(t_zone *zone)
 {
     write(1, "LARGE : ", 8);
-    ft_putnbr_base_u_long(zone->mem, "0123456789ABCDEF");
+    ft_putnbr_base_u_long((uint64_t) zone->mem, "0123456789ABCDEF");
     write(1, "\n", 1);
 
-    ft_putnbr_base_u_long(zone->mem, "0123456789ABCDEF");
+    ft_putnbr_base_u_long((uint64_t) zone->mem, "0123456789ABCDEF");
     write(1, " - ", 3);
-    ft_putnbr_base_u_long(zone->mem + zone->size -1, "0123456789ABCDEF");
+    ft_putnbr_base_u_long((uint64_t) zone->mem + zone->size -1, "0123456789ABCDEF");
     write(1, " : ", 3);
-    ft_putnbr_base_u_long(zone->size, "0123456789");
+    ft_putnbr_base_u_long((uint64_t) zone->size, "0123456789");
     write(1, " bytes\n", 7);
 
     return ((uint64_t) zone->size);
@@ -78,7 +77,7 @@ static unsigned long show_zone_block(t_zone *zone)
     else
         write(1, "SPECIAL : ", 10); 
 
-    ft_putnbr_base_u_long(zone->mem, "0123456789ABCDEF");
+    ft_putnbr_base_u_long((uint64_t) zone->mem, "0123456789ABCDEF");
     write(1, "\n", 1);
 
     uint64_t allocated_user_memory = 0;
@@ -87,14 +86,14 @@ static unsigned long show_zone_block(t_zone *zone)
         uint8_t byte = i / 8;
         uint8_t bit = i % 8;
 
-        uint8_t isSet = get_bit(zone->mem[16 + byte], bit);
+        uint8_t isSet = get_bit((uint64_t) zone->mem[16 + byte], bit);
         if (isSet)
         {
             void *alloc_start =  zone->mem + meta_data.index_of_first_alloc + (i * meta_data.size_of_each_block);
 
-            ft_putnbr_base_u_long(alloc_start, "0123456789ABCDEF");
+            ft_putnbr_base_u_long((uint64_t) alloc_start, "0123456789ABCDEF");
             write(1, " - ", 3);
-            ft_putnbr_base_u_long(alloc_start + meta_data.size_of_each_block -1 , "0123456789ABCDEF");
+            ft_putnbr_base_u_long((uint64_t) alloc_start + meta_data.size_of_each_block -1 , "0123456789ABCDEF");
             write(1, " : ", 3);
             ft_putnbr_base_u_long(meta_data.size_of_each_block, "0123456789");
             write(1, " bytes\n", 7);
@@ -103,14 +102,4 @@ static unsigned long show_zone_block(t_zone *zone)
         }
     }
     return (allocated_user_memory); 
-}
-
-static int ft_strlen(char *str)
-{
-    if (str == NULL)
-        return (0);
-    int i = 0;
-    while (str[i] != '\0')
-        i++;
-    return (i);
 }
