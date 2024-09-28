@@ -28,7 +28,7 @@ void *realloc(void *ptr, size_t size)
     if (zone == NULL)
         return (malloc(size));
 
-    uint32_t previous_size = get_size_of_zonej(zone);
+    uint32_t previous_size = get_size_of_zone(zone);
 
     if (previous_size >= size)
         return (ptr);
