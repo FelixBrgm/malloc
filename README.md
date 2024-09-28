@@ -77,9 +77,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X]  getpagesize under OSX or sysconf(_SC_PAGESIZE) under linux
 - [X] make functions static so that they can't be accessed from outside of malloc
 - [X] write realloc so that it only copies from previous size
-
 - [X] write visualizer that works well
-- [ ] fix when 256 exist that a 32 byte will be stored inside of that
+- [X] fix when 256 exist that a 32 byte will be stored inside of that
+
 - [ ] check max allocation on linux
 ---
 - [ ] sorted zones for "quick" access

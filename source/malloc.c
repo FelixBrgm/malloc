@@ -14,14 +14,15 @@ static uint8_t retrieve_page_size(void);
 
 void *malloc(size_t size)
 {
-    if (retrieve_page_size())
+    if (size == 0)
         return (NULL);
 
-    if (size == 0)
+    if (retrieve_page_size())
         return (NULL);
 
     for (size_t i = 0; i < BLOCK_SIZES_LEN; i++)
     {
+        
         const uint32_t block_size = storage.block_sizes[i];
         if (size <= block_size)
         {
@@ -48,7 +49,7 @@ static void *get_block_memory(uint32_t block_type)
             continue;
 
         t_metadata_block metadata = read_metadata_block_from_array(zone->mem);
-        if (metadata.size_of_each_block < block_type)
+        if (metadata.size_of_each_block != block_type)
             continue;
         const uint32_t isEnoughSpace = metadata.nbr_of_used_blocks < metadata.max_nbr_of_blocks;
         if (!isEnoughSpace)
