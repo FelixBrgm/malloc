@@ -79,8 +79,8 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [X] write realloc so that it only copies from previous size
 - [X] write visualizer that works well
 - [X] fix when 256 exist that a 32 byte will be stored inside of that
+- [X] check max allocation on linux
 
-- [ ] check max allocation on linux
 ---
 - [ ] sorted zones for "quick" access
 - [ ] lifetimes
