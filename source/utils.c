@@ -29,6 +29,11 @@ void *alloc(size_t size)
 
 void dealloc(void *ptr, size_t size)
 {
+    if (size == 0)
+        return;
+    if (size % storage.page_size != 0)
+        size = ((size / storage.page_size) + 1) * storage.page_size;
+        
     if (ptr != NULL && size > 0)
     {
         if (munmap(ptr, size))
