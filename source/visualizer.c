@@ -66,7 +66,7 @@ static uint64_t show_zone_single(t_zone *zone)
     return ((uint64_t) zone->size);
 }
 
-static unsigned long show_zone_block(t_zone *zone)
+static uint64_t show_zone_block(t_zone *zone)
 {
     t_metadata_block meta_data = read_metadata_block_from_array(zone->mem);
 
