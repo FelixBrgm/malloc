@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-static t_zone *get_zone(uint8_t *ptr);
+t_zone *get_zone(uint8_t *ptr);
 static void free_single(t_zone *zone);
 static void free_block(t_zone *zone, uint8_t *ptr);
 static void dealloc_zone(t_zone *zone);
@@ -51,7 +51,7 @@ static void dealloc_zone(t_zone *zone)
     zone->type = 0;
 }
 
-static t_zone *get_zone(uint8_t *ptr)
+t_zone *get_zone(uint8_t *ptr)
 {
     t_zone *zone = NULL;
     for (size_t i = 0; i < storage.capacity; i++)
