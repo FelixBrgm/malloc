@@ -78,6 +78,8 @@ static unsigned long show_zone_block(t_zone *zone)
     else
         write(1, "SPECIAL : ", 10); 
 
+    ft_putnbr_base_u_long(zone->mem, "0123456789ABCDEF");
+    write(1, "\n", 1);
 
     uint64_t allocated_user_memory = 0;
     for (size_t i = 0; i < meta_data.max_nbr_of_blocks; i++)
@@ -90,8 +92,6 @@ static unsigned long show_zone_block(t_zone *zone)
         {
             void *alloc_start =  zone->mem + meta_data.index_of_first_alloc + (i * meta_data.size_of_each_block);
 
-            ft_putnbr_base_u_long(alloc_start, "0123456789ABCDEF");
-            write(1, "\n", 1);
             ft_putnbr_base_u_long(alloc_start, "0123456789ABCDEF");
             write(1, " - ", 3);
             ft_putnbr_base_u_long(alloc_start + meta_data.size_of_each_block -1 , "0123456789ABCDEF");
